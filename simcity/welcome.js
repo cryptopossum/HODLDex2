@@ -86,15 +86,15 @@ module.exports = async (config) => {
     console.log("\n10 - Finish Confirm user balances\n")
     console.log("\n11 - set private config")
     const privateConfig = {
-      rpcEndpoint: '127.0.0.1:8545',
+      rpcEndpoint: 'htto://127.0.0.1:8545',
       dexContractAddress: upgradableHodlDex.address, // HodlDex Proxy
       tokenContractAddress: tokenAddress, // HTEthUsd
       tokenReserveContractAddress: upgradableTokenReserve.address, // HTokenReserve Proxy
     }
     console.log("\n12 - try catch setting private config file")
     const d = JSON.stringify(privateConfig, null, 4);
-      console.log('CONFIG', d)
-      fs.writeFileSync('../HETHUSD-ui/src/private-network.json', d);
+    console.log('CONFIG', d)
+    fs.writeFileSync('../HETHUSD-ui/src/private-network.json', d);
   } catch (e) {
     console.error(e);
   }
