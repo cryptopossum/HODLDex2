@@ -19,8 +19,6 @@ deploy:
 
 simcity: welcome current
 
-live: current future
-
 welcome:
 	$(TRUFFLE) exec ./simcity/welcome.js
 

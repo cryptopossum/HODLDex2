@@ -57,11 +57,11 @@ module.exports = async (config) => {
     await hodlDex.depositEth({ from: residents["doggy"].address, value: initEthAmountToDeposit })
     console.log("7 - Finished depositing Eth into hodldex user accounts\n")
     console.log("\n8 - Start confirm user balances\n")
-    const reserveBal1 = await hodlDex.user(residents["andy"].address) 
+    const reserveBal1 = await hodlDex.user(residents["andy"].address)
     console.log("Andy user eth balance: " + reserveBal1.balanceEth + "\nAndy user HodlC balance: " + reserveBal1.balanceHodl + "\nAndy user HodlC controlled: " + reserveBal1.controlledHodl)
-    const reserveBal2 = await hodlDex.user(residents["shelly"].address) 
+    const reserveBal2 = await hodlDex.user(residents["shelly"].address)
     console.log("\nshelly user eth balance: " + reserveBal2.balanceEth + "\nshelly user HodlC balance: " + reserveBal2.balanceHodl + "\nshelly user HodlC controlled: " + reserveBal2.controlledHodl)
-    const reserveBal3 = await hodlDex.user(residents["doggy"].address) 
+    const reserveBal3 = await hodlDex.user(residents["doggy"].address)
     console.log("\ndoggy user eth balance: " + reserveBal3.balanceEth + "\ndoggy user HodlC balance: " + reserveBal3.balanceHodl + "\ndoggy user HodlC controlled: " + reserveBal3.controlledHodl)
     console.log("\n8 - Finish confirm user balances\n")
 
@@ -77,11 +77,11 @@ module.exports = async (config) => {
     await hodlDex.buyHodlC(web3.utils.toWei('10', 'ether'), 400000, {from:residents["doggy"].address})
     console.log("\n9 - finished buying tokens from reserve, 3 users")
     console.log("\n10 - Start Confirm user balances\n")
-    const reserveBal4 = await hodlDex.user(residents["andy"].address) 
+    const reserveBal4 = await hodlDex.user(residents["andy"].address)
     console.log("Andy user eth balance: " + reserveBal4.balanceEth + "\nAndy user HodlC balance: " + reserveBal4.balanceHodl + "\nAndy user HodlC controlled: " + reserveBal4.controlledHodl)
-    const reserveBal5 = await hodlDex.user(residents["shelly"].address) 
+    const reserveBal5 = await hodlDex.user(residents["shelly"].address)
     console.log("\nshelly user eth balance: " + reserveBal5.balanceEth + "\nshelly user HodlC balance: " + reserveBal5.balanceHodl + "\nshelly user HodlC controlled: " + reserveBal5.controlledHodl)
-    const reserveBal6 = await hodlDex.user(residents["doggy"].address) 
+    const reserveBal6 = await hodlDex.user(residents["doggy"].address)
     console.log("\ndoggy user eth balance: " + reserveBal6.balanceEth + "\ndoggy user HodlC balance: " + reserveBal6.balanceHodl + "\ndoggy user HodlC controlled: " + reserveBal6.controlledHodl)
     console.log("\n10 - Finish Confirm user balances\n")
     console.log("\n11 - set private config")
@@ -93,10 +93,11 @@ module.exports = async (config) => {
     }
     console.log("\n12 - try catch setting private config file")
     const d = JSON.stringify(privateConfig, null, 4);
-      fs.writeFileSync('../dex/client/src/privateConfig.json', d);
+      console.log('CONFIG', d)
+      fs.writeFileSync('../HETHUSD-ui/src/private-network.json', d);
   } catch (e) {
     console.error(e);
   }
-  
+
   process.exit(0);
 }

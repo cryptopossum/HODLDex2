@@ -29,7 +29,7 @@ module.exports = async (config) => {
   Proportional.setProvider(provider);
   //HTEthUsd.setProvider(provider);
   console.log("1 - finished setting providers\n")
-  
+
   console.log("2 - starting prep for contract addresses/access")
   const tokenReserveProxy = await HTokenReserveProxy.deployed();
   const hodlDexProxy = await HodlDexProxy.deployed();
@@ -56,19 +56,19 @@ module.exports = async (config) => {
   console.log("3 - End issue hodlT, 3 users\n")
   console.log("4 - Start check balances")
   try{
-    const reserveBal1 = await hodlDex.user(residents["andy"].address) 
+    const reserveBal1 = await hodlDex.user(residents["andy"].address)
     console.log("Andy user eth balance: " + reserveBal1.balanceEth + "\nAndy user HodlC balance: " + reserveBal1.balanceHodl + "\nAndy user HodlC controlled: " + reserveBal1.controlledHodl)
     let HTbal = await hTEthUsd.balanceOf(residents["andy"].address)
     console.log("HT balance andy: " + HTbal)
-    const reserveBal2 = await hodlDex.user(residents["shelly"].address) 
+    const reserveBal2 = await hodlDex.user(residents["shelly"].address)
     console.log("\nshelly user eth balance: " + reserveBal2.balanceEth + "\nshelly user HodlC balance: " + reserveBal2.balanceHodl + "\nshelly user HodlC controlled: " + reserveBal2.controlledHodl)
     HTbal = await hTEthUsd.balanceOf(residents["shelly"].address)
-    console.log("HT balance shelly: " + HTbal) 
-    const reserveBal3 = await hodlDex.user(residents["doggy"].address) 
+    console.log("HT balance shelly: " + HTbal)
+    const reserveBal3 = await hodlDex.user(residents["doggy"].address)
     console.log("\ndoggy user eth balance: " + reserveBal3.balanceEth + "\ndoggy user HodlC balance: " + reserveBal3.balanceHodl + "\ndoggy user HodlC controlled: " + reserveBal3.controlledHodl)
     HTbal = await hTEthUsd.balanceOf(residents["doggy"].address)
-    console.log("HT balance doggy: " + HTbal) 
-    const reserveBal = await hodlDex.user(tokenReserveProxy.address) 
+    console.log("HT balance doggy: " + HTbal)
+    const reserveBal = await hodlDex.user(tokenReserveProxy.address)
     console.log("\n\nreserve contract Eth balance: " + reserveBal.balanceEth + "\nreserve contract HodlC balance: " + reserveBal.balanceHodl + "\nreserve HodlC controlled: " + reserveBal.controlledHodl)
   } catch (err) {
     console.log(err)
@@ -76,7 +76,7 @@ module.exports = async (config) => {
   console.log("4 - End check balances\n")
 
   console.log("\n5 - Start buying hodlc loop")
-  for(let i = 0; i < 100; i++){
+  for(let i = 0; i < 50; i++){
     console.log('buy hodlc', i)
     await hodlDex.buyHodlC(web3.utils.toWei('0.2', 'ether'), 400000, {from:residents["andy"].address})
     await hodlDex.buyHodlC(web3.utils.toWei('0.2', 'ether'), 400000, {from:residents["shelly"].address})
@@ -85,7 +85,7 @@ module.exports = async (config) => {
   await advanceTimeAndBlock(DAY, web3)
   await hodlDex.hodlTIssue(web3.utils.toWei('1002', 'ether'), fromDoggy)
   console.log("5 - End buying hodlc loop\n")
-  
+
   console.log("\n6 - Get distribution info ASSET_HODL\n")
   const distCount1 = await hodlDex.distributionCount(ASSET_ID_HODL)
   console.log("\nDistribution Count Before advanceTimeAndBlock: " + distCount1)
@@ -110,7 +110,7 @@ module.exports = async (config) => {
   try {
     const distAtInd1 = await hodlDex.distributionAtIndex(ASSET_ID_ETH, 0)
     console.log("Total Circulating Supply: " + distAtInd1.denominator + "\nDistribution ETH amount: " + distAtInd1.amount + "\nDistribution period: " + distAtInd1._period)
-  
+
   } catch (error) {
     console.log(error)
   }
@@ -119,11 +119,11 @@ module.exports = async (config) => {
   try {
     const distAtInd2 = await hodlDex.distributionAtIndex(ASSET_ID_HODL, 0)
     console.log("\n\nTotal Circulating Supply: " + distAtInd2.denominator + "\nDistribution HODLC amount: " + distAtInd2.amount + "\nDistribution period: " + distAtInd2._period)
-  
+
   } catch (error) {
     console.log(error)
   }
-  
+
   const blockA = await web3.eth.getBlockNumber();
   const dateA = await web3.eth.getBlock(blockA)
   console.log("Block number after: " + blockA)
@@ -135,7 +135,7 @@ module.exports = async (config) => {
   try {
     const distAtInd1 = await hodlDex.distributionAtIndex(ASSET_ID_ETH, 0)
     console.log("\n\nTotal Circulating Supply " + distAtInd1.denominator + "\nDistribution ETH amount: " + distAtInd1.amount + "\nDistribution period: " + distAtInd1._period)
-  
+
   } catch (error) {
     console.log(error)
   }
@@ -143,7 +143,7 @@ module.exports = async (config) => {
   try {
     const distAtInd2 = await hodlDex.distributionAtIndex(ASSET_ID_HODL, 0)
     console.log("\n\nTotal Circulating Supply: " + distAtInd2.denominator + "\nDistribution HODLC amount: " + distAtInd2.amount + "\nDistribution period: " + distAtInd2._period)
-  
+
   } catch (error) {
     console.log(error)
   }
@@ -151,9 +151,16 @@ module.exports = async (config) => {
   try {
     const distAtInd3 = await hodlDex.distributionAtIndex(ASSET_ID_HODL, 1)
     console.log("\n\nTotal Circulating Supply: " + distAtInd3.denominator + "\nDistribution HODLC amount: " + distAtInd3.amount + "\nDistribution period: " + distAtInd3._period)
-  
+
   } catch (error) {
     console.log(error)
+  }
+  let amountInit = 40;
+  for(let i = 0; i < 50; i++){
+    console.log('sell hodlc', i)
+    await hodlDex.sellHodlC(web3.utils.toWei(String(amountInit++), 'ether'), 400000, {from:residents["andy"].address})
+    await hodlDex.sellHodlC(web3.utils.toWei(String(amountInit++), 'ether'), 400000, {from:residents["shelly"].address})
+    await hodlDex.sellHodlC(web3.utils.toWei(String(amountInit++), 'ether'), 400000, {from:residents["doggy"].address})
   }
 
   const distCount3 = await hodlDex.distributionCount(ASSET_ID_HODL)
@@ -167,7 +174,7 @@ module.exports = async (config) => {
   try {
     const distAtInd3 = await hodlDex.distributionAtIndex(ASSET_ID_HODL, 1)
     console.log("\n\nTotal Circulating Supply: " + distAtInd3.denominator + "\nDistribution HODLC amount: " + distAtInd3.amount + "\nDistribution period: " + distAtInd3._period)
-  
+
   } catch (error) {
     console.log(error)
   }
