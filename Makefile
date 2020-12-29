@@ -1,8 +1,6 @@
 TRUFFLE=npx truffle
 GANACHE=npx ganache-cli
 
-all: testnet-simcity deploy simcity
-
 .PHONY: test
 test:
 	$(TRUFFLE) test
