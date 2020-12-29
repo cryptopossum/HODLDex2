@@ -8,7 +8,7 @@ test:
 	$(TRUFFLE) test
 
 testnet-simcity-andy:
-	$(GANACHE) -m "twenty bulk regular excess orchard blade route lyrics rail panic federal crawl" -e 1000000
+	$(GANACHE) -v -m "twenty bulk regular excess orchard blade route lyrics rail panic federal crawl" -e 1000000
 simcity-andy: deploy simcity
 
 testnet-simcity:
@@ -20,7 +20,7 @@ testnet-10:
 deploy:
 	$(TRUFFLE) migrate --network development --reset --skip-dry-run
 
-simcity: welcome current future
+simcity: welcome current
 
 live: current future
 
