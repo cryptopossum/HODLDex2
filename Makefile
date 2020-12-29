@@ -5,11 +5,10 @@ GANACHE=npx ganache-cli
 test:
 	$(TRUFFLE) test
 
-testnet-simcity-andy:
+testnet-andy:
 	$(GANACHE) -v -m "twenty bulk regular excess orchard blade route lyrics rail panic federal crawl" -e 1000000
-simcity-andy: deploy simcity
 
-testnet-simcity:
+testnet:
 	gnome-terminal -- /bin/sh -c 'cd ./HODL2; ./node_modules/.bin/ganache-cli -m "twenty bulk regular excess orchard blade route lyrics rail panic federal crawl" -e 1000000'
 
 testnet-10:
