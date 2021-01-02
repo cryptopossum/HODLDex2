@@ -92,7 +92,7 @@ module.exports = async (config) => {
       tokenReserveContractAddress: upgradableTokenReserve.address, // HTokenReserve Proxy
     }
     console.log("\n12 - try catch setting private config file")
-    const d = JSON.stringify(privateConfig, null, 4);
+    const d = JSON.stringify(privateConfig, null, 2);
     console.log('CONFIG', d)
     fs.writeFileSync('../HETHUSD-ui/src/private-network.json', d);
   } catch (e) {
